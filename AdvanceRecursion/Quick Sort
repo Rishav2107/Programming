@@ -1,0 +1,70 @@
+#include<bits/stdc++.h>
+using namespace std;
+int partition(int *arr,int start,int end)
+{
+    int x=arr[start];
+    int count_small_elements=0;
+    int i=start+1;
+    while(i<=end)
+    {
+        if(arr[i]<=x)
+            count_small_elements++;
+        i++;
+    }
+    int pos=start+count_small_elements;
+    int temp=arr[pos];
+    arr[pos]=arr[start];
+    arr[start]=temp;
+     i=start;
+    int j=end;
+    while(i<pos && j>pos)
+    {
+        if(arr[i]<=x)
+            i++;
+        else 
+        {
+            if(arr[j]>x)
+                j--;
+            else
+            {
+                int temp1=arr[j];
+                arr[j]=arr[i];
+                arr[i]=temp1;
+                i++;
+                j--;
+            }
+        }
+    }
+   
+}
+void qs(int *arr,int start,int end)
+{
+    if(start >= end)
+        return;
+    int c=partition(arr,start,end);
+    qs(arr,start,c-1);
+    qs(arr,c+1,end);
+}
+int main(){
+    
+    // write your code here
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        int arr[n];
+        for(int i=0;i<n;i++)
+        {
+            cin>>arr[i];
+        }
+        qs(arr,0,n-1);
+        for(int i=0;i<n;i++)
+        {
+            cout<<arr[i]<<" ";
+        }
+        cout<<endl;
+    }
+    return 0;
+}
