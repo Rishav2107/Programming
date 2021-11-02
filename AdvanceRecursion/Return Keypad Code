@@ -1,0 +1,101 @@
+Given an integer n, using phone keypad find out all the possible strings that can be made using digits of input n.
+The numbers and their corresponding codes are given below:
+0: ""
+1: ""
+2: "abc"
+3: "def"
+4: "ghi"
+5: "jkl"
+6: "mno"
+7: "pqrs"
+8: "tuv"
+9: "wxyz"
+Return empty string for numbers 0 and 1.
+Note:
+1. The order of strings are not important.
+2. The input number will have digits between: [2, 9].
+Input Format :
+First line of input will contain T number of test cases.
+Each input consists of a single line containing an integer n.
+Output Format :
+For each test case, print all possible strings in different lines.
+Constraints :
+1 <= T <= 100
+1 <= n <= 10^6
+Sample Input:
+1
+23
+Sample Output:
+ad
+ae
+af
+bd
+be
+bf
+cd
+ce
+cf
+
+
+
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int keypadCode(int num,string *output,vector<string> keypad)
+{
+    if(num==0)
+    {
+        output[0]="";
+        return 1;
+    }
+    int n=num%10;
+    num=num/10;
+    int c = keypadCode(num,output,keypad);
+    int ans_size=keypad[n].size()*c;
+    string temp[ans_size];
+    int k=0;
+    //string* temp=new string(n*)
+    for (int i=0;i<c;i++)
+    {
+        for(int j=0;j<keypad[n].size();j++)
+        {
+              temp[k++]=output[i]+keypad[n][j];
+        }
+      
+        
+    }
+    for(int i=0;i<ans_size;i++)
+        {
+            output[i]=temp[i];
+        }
+    return ans_size;
+  
+    
+}
+
+int main(){
+    
+    // write your code here
+    int t;
+    cin>>t;
+     vector<string> keypad =
+    {
+       "","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"
+    };
+    while(t--)
+    {
+        int n;
+        cin>>n;
+        string* output = new string[1000000];
+        int c= keypadCode(n,output,keypad);
+        for(int i=0;i<n;i++)
+        {
+            cout<<output[i]<<endl;
+        }
+    }
+    return 0;
+}
