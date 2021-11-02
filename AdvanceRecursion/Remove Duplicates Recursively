@@ -1,0 +1,46 @@
+Given a string S, remove consecutive duplicates from it recursively.
+Input Format :
+First line of input will contain T number of test cases
+Next T line will contain the string S
+Output Format :
+For every test case print the answer in a separate line
+Sample Input 1 :
+1
+aabccba
+Sample Output 1 :
+abcba
+
+#include<bits/stdc++.h>
+using namespace std;
+void removeConsecutiveDuplicates(char *s)
+{
+    if(s[0]=='\0')
+        return;
+    else if(s[0]==s[1])
+    {
+        int i=1;
+        for(;s[i]!='\0';i++)
+            s[i-1]=s[i];
+        s[i-1]=s[i];
+        removeConsecutiveDuplicates(s);
+    }
+    else
+    {
+        removeConsecutiveDuplicates(s+1);
+    }
+        
+}
+int main(){
+    
+    // write your code here
+    int t;
+    cin>>t;
+    while(t--)
+    {
+    	char s[10001];
+        cin>>s;
+        removeConsecutiveDuplicates(s);
+        cout<<s<<endl;
+    }
+    return 0;
+}
